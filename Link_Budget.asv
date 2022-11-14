@@ -1,8 +1,0 @@
-%%%%%%%%%%%%%%%%%%%%%%%%% PAYLOAD DESIGN PROJECT %%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%      LINK BUDGET       %%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Setting parameters
-R = 800e3; % detection range of the target [km]
-sigma_0 = 0;
-A = 0;
-sigma_t = 0;
