@@ -20,11 +20,11 @@ lambda = c/f; % wavelength of the radiation [m]
 
 sigma_0_dB = -15; % normalized radar cross-section (from paper) [dB]
 sigma_0 = dB2LinearScale_SNR_sigma_gain(sigma_0_dB); % normalized radar cross-section [-]
-A_s = pi*(25e3/2)^2; % area covered on the sea, circle of 25 km diameter [m²]
+A_s = pi*(50e3/2)^2; % area covered on the sea, circle of 50 km diameter [m²]
 sigma_t = sigma_0*A_s; % radar cross-section area [m²]
 
 %% 2) Computation of the Noise Power
-NF_dB = 5; % noise figure [dB]
+NF_dB = 3; % noise figure [dB]
 NF = dB2LinearScale_SNR_sigma_gain(NF_dB);
 T_sys = 290*(NF - 1); % system equivalent noise temperature [K]
 B = 2.15e9; % bandwidth, B = 2.15 GHz [Hz]
@@ -72,6 +72,11 @@ numerator = P_RX*(4*pi)^3*R^4;
 denominator = G_TX*G_RX*L_TX*L_RX*lambda^2*L_a*sigma_t;
 
 P_TX = numerator/denominator; % transmitted power [W]
-printffprintprintf
 
 %% 7) Computation of the number of antennas for one array
+
+%% 8) Let's print the outputs
+fprintf("Received power: P_RX = %d \n", P_RX);
+fprintf("Transmitted power: P_TX = %d \n", P_TX);
+
+
