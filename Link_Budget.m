@@ -56,10 +56,6 @@ theta = 3; % beamwidth of the RX and TX antennas, theta = 3° [deg]
 L_p_dB = -12*(eta/theta)^2; % pointing losses [dB]
 L_p = dB2LinearScale_losses(L_p_dB); % pointing losses [-]
 
-% SIGNAL PROCESSING LOSSES
-L_S_dB = -0.01; % signal processing losses, arbitrary value [dB]
-L_S = dB2LinearScale_losses(L_S_dB);
-
 % 2-WAY PROPAGATION LOSSES
     % ATMOSPHERIC LOSSES
 L_atm_dB = -0.04; % atmospheric losses (from graph) [dB]
@@ -72,6 +68,6 @@ L_a = L_atm + L_space; % 2-way propagating losses [-]
 
 %% 6) Computation of the transmitted power
 numerator = P_RX*(4*pi)^3*R^4;
-denominator = G_TX*G_RX*L_TX*L_RX*lambda^2*L_p*L_S*L_a*sigma_t;
+denominator = G_TX*G_RX*L_TX*L_RX*lambda^2*L_p*L_a*sigma_t;
 
 P_TX = numerator/denominator; % transmitted power [W]
