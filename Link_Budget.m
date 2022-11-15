@@ -51,14 +51,14 @@ L_RX_dB = -3; % receiver losses [dB]
 L_RX = dB2LinearScale_losses(L_RX_dB); % receiver losses [-]
 
 % POINTING LOSSES
-eta = 0.1; % pointing accuracy, e = +-0.1° [deg]
-theta = 3; % beamwidth of the RX and TX antennas, theta = 3° [deg]
-L_p_dB = -12*(eta/theta)^2; % pointing losses [dB]
-L_p = dB2LinearScale_losses(L_p_dB); % pointing losses [-]
+% eta = 0.1; % pointing accuracy, e = +-0.1° [deg]
+% theta = 3; % beamwidth of the RX and TX antennas, theta = 3° [deg]
+% L_p_dB = -12*(eta/theta)^2; % pointing losses [dB]
+% L_p = dB2LinearScale_losses(L_p_dB); % pointing losses [-]
 
 % 2-WAY PROPAGATION LOSSES
     % ATMOSPHERIC LOSSES
-L_atm_dB = -0.04; % atmospheric losses (from graph) [dB]
+L_atm_dB = -0.04*2; % atmospheric losses (from graph) [dB]
 L_atm = dB2LinearScale_losses(L_atm_dB); % atmospheric losses [-]
 
     % FREE SPACE LOSSES
@@ -68,6 +68,10 @@ L_a = L_atm + L_space; % 2-way propagating losses [-]
 
 %% 6) Computation of the transmitted power
 numerator = P_RX*(4*pi)^3*R^4;
-denominator = G_TX*G_RX*L_TX*L_RX*lambda^2*L_p*L_a*sigma_t;
+% denominator = G_TX*G_RX*L_TX*L_RX*lambda^2*L_p*L_a*sigma_t;
+denominator = G_TX*G_RX*L_TX*L_RX*lambda^2*L_a*sigma_t;
 
 P_TX = numerator/denominator; % transmitted power [W]
+printffprintprintf
+
+%% 7) Computation of the number of antennas for one array
