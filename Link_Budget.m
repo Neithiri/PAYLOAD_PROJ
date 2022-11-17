@@ -24,10 +24,12 @@ A_s = pi*(50e3/2)^2; % area covered on the sea, circle of 50 km diameter [m²]
 sigma_t = sigma_0*A_s; % radar cross-section area [m²]
 
 %% 2) Computation of the Noise Power
-NF_dB = 3; % noise figure [dB]
-NF = dB2LinearScale_SNR_sigma_gain(NF_dB);
-T_sys = 290*(NF - 1); % system equivalent noise temperature [K]
+F_dB = 5; % system noise figure [dB]
+F = dB2LinearScale_SNR_sigma_gain(F_dB); % system noise figure [-]
+T_0 = 290; % system physical temperature [K]
+T_sys = T_0*F; % system equivalent noise temperature [K]
 B = 2.15e9; % bandwidth, B = 2.15 GHz [Hz]
+B = 25e3;
 
 P_N = k_B*T_sys*B; % Noise Power [W]
 
@@ -50,7 +52,7 @@ L_TX = dB2LinearScale_losses(L_TX_dB); % transmitter losses [-]
 L_RX_dB = -3; % receiver losses [dB]
 L_RX = dB2LinearScale_losses(L_RX_dB); % receiver losses [-]
 
-% POINTING LOSSES
+% POINTING LOSSES (we neglect them as we have same TX and RX)
 % eta = 0.1; % pointing accuracy, e = +-0.1° [deg]
 % theta = 3; % beamwidth of the RX and TX antennas, theta = 3° [deg]
 % L_p_dB = -12*(eta/theta)^2; % pointing losses [dB]
