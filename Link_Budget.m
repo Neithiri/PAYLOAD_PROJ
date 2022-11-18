@@ -11,10 +11,10 @@ c = 3e8; % speed of light in vacuum [m/s]
 k_B = 1.38e-23; % Boltzmann constant [J/K]
 
 %% 1) Setting parameters
-SNR_dB = 5; % Signal to Noise Ratio [dB]
+SNR_dB = 3; % Signal to Noise Ratio [dB]
 SNR = dB2LinearScale_SNR_sigma_gain(SNR_dB); % Signal to Noise Ratio [-]
 
-R = 800e3; % detection range of the target,R = 800 km [m]
+R = 800e3; % detection range of the target, R = 800 km [m]
 f = 6E9; % frequency of the radiation, f = 6 GHz [Hz]
 lambda = c/f; % wavelength of the radiation [m]
 
@@ -28,7 +28,7 @@ F_dB = 5; % system noise figure [dB]
 F = dB2LinearScale_SNR_sigma_gain(F_dB); % system noise figure [-]
 T_0 = 290; % system physical temperature [K]
 T_sys = T_0*F; % system equivalent noise temperature [K]
-B = 2.15e9; % bandwidth, B = 2.15 GHz [Hz] TO BE MODIFIED, WRONG VALUE
+B = 400e3; % bandwidth, B = 2.15 GHz [Hz] TO BE MODIFIED, WRONG VALUE
 
 P_N = k_B*T_sys*B; % Noise Power [W]
 
@@ -38,7 +38,7 @@ P_RX = SNR*P_N;
 %% 4) Computation of the antenna gains
 %% For sake of simplicity we consider the same parameters for both TX and
 %% RX antennas
-G_TX_dB = 15.3; % gain of the TX antenna [dB]
+G_TX_dB = 25; % gain of the TX antenna [dB]
 G_TX = dB2LinearScale_SNR_sigma_gain(G_TX_dB); % gain of the TX antenna [-]
 G_RX = G_TX; % gain of the RX antenna [-]
 
