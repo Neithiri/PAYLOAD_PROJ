@@ -28,8 +28,7 @@ F_dB = 5; % system noise figure [dB]
 F = dB2LinearScale_SNR_sigma_gain(F_dB); % system noise figure [-]
 T_0 = 290; % system physical temperature [K]
 T_sys = T_0*F; % system equivalent noise temperature [K]
-B = 2.15e9; % bandwidth, B = 2.15 GHz [Hz]
-B = 25e3;
+B = 2.15e9; % bandwidth, B = 2.15 GHz [Hz] TO BE MODIFIED, WRONG VALUE
 
 P_N = k_B*T_sys*B; % Noise Power [W]
 
