@@ -3,7 +3,7 @@
 clearvars; close all; clc;
 
 %% Conversions
-dB2LinearScale_SNR_sigma_gain = @(SNR_dB) 10^(SNR_dB/10);
+dB2LinearScale_SNR_sigma_gain_NF = @(SNR_dB) 10^(SNR_dB/10);
 dB2LinearScale_losses = @(L_dB) 10^(L_dB/20);
 
 %% 0) Constants
@@ -12,23 +12,23 @@ k_B = 1.38e-23; % Boltzmann constant [J/K]
 
 %% 1) Setting parameters
 SNR_dB = 3; % Signal to Noise Ratio [dB]
-SNR = dB2LinearScale_SNR_sigma_gain(SNR_dB); % Signal to Noise Ratio [-]
+SNR = dB2LinearScale_SNR_sigma_gain_NF(SNR_dB); % Signal to Noise Ratio [-]
 
 R = 800e3; % detection range of the target, R = 800 km [m]
 f = 6E9; % frequency of the radiation, f = 6 GHz [Hz]
 lambda = c/f; % wavelength of the radiation [m]
 
 sigma_0_dB = -15; % normalized radar cross-section (from paper) [dB]
-sigma_0 = dB2LinearScale_SNR_sigma_gain(sigma_0_dB); % normalized radar cross-section [-]
+sigma_0 = dB2LinearScale_SNR_sigma_gain_NF(sigma_0_dB); % normalized radar cross-section [-]
 A_s = pi*(50e3/2)^2; % area covered on the sea, circle of 50 km diameter [m²]
 sigma_t = sigma_0*A_s; % radar cross-section area [m²]
 
 %% 2) Computation of the Noise Power
-F_dB = 5; % system noise figure [dB]
-F = dB2LinearScale_SNR_sigma_gain(F_dB); % system noise figure [-]
-T_0 = 290; % system physical temperature [K]
-T_sys = T_0*F; % system equivalent noise temperature [K]
-B = 400e3; % bandwidth, B = 2.15 GHz [Hz] TO BE MODIFIED, WRONG VALUE
+NF = 5; % system noise figure [dB]
+F = dB2LinearScale_SNR_sigma_gain_NF(NF); % system noise factor [-]
+T_0 = 290; % system reference temperature [K]
+T_sys = (F - 1)*T_0; % system equivalent noise temperature [K]
+B = 600e3; % bandwidth, B = 2.15 GHz [Hz] TO BE MODIFIED, WRONG VALUE
 
 P_N = k_B*T_sys*B; % Noise Power [W]
 
@@ -38,8 +38,8 @@ P_RX = SNR*P_N;
 %% 4) Computation of the antenna gains
 %% For sake of simplicity we consider the same parameters for both TX and
 %% RX antennas
-G_TX_dB = 25; % gain of the TX antenna [dB]
-G_TX = dB2LinearScale_SNR_sigma_gain(G_TX_dB); % gain of the TX antenna [-]
+G_TX_dB = 23; % gain of the TX antenna [dB]
+G_TX = dB2LinearScale_SNR_sigma_gain_NF(G_TX_dB); % gain of the TX antenna [-]
 G_RX = G_TX; % gain of the RX antenna [-]
 
 %% 5) Computation of the losses
