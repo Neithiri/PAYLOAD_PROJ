@@ -28,7 +28,7 @@ NF = 5; % system noise figure [dB]
 F = dB2LinearScale_SNR_sigma_gain_NF(NF); % system noise factor [-]
 T_0 = 290; % system reference temperature [K]
 T_sys = (F - 1)*T_0; % system equivalent noise temperature [K]
-B = 600e3; % bandwidth, B = 600kHz [Hz]
+B = 25e3; % bandwidth, B = 25 kHz [Hz]
 
 P_N = k_B*T_sys*B; % Noise Power [W]
 
@@ -38,7 +38,7 @@ P_RX = SNR*P_N;
 %% 4) Computation of the antenna gains
 %% For sake of simplicity we consider the same parameters for both TX and
 %% RX antennas
-G_TX_dB = 22; % gain of the TX antenna [dB]
+G_TX_dB = 25; % gain of the TX antenna [dB]
 G_TX = dB2LinearScale_SNR_sigma_gain_NF(G_TX_dB); % gain of the TX antenna [-]
 G_RX = G_TX; % gain of the RX antenna [-]
 
