@@ -7,8 +7,8 @@ dB2LinearScale_SNR_sigma_gain_NF = @(SNR_dB) 10^(SNR_dB/10);
 dB2LinearScale_losses = @(L_dB) 10^(L_dB/20);
 
 %% 0) Constants
-c = 3e8; % speed of light in vacuum [m/s]
-k_B = 1.38e-23; % Boltzmann constant [J/K]
+c = physconst('lightspeed'); % speed of light in vacuum [m/s]
+k_B = physconst('boltzmann'); % Boltzmann constant [J/K]
 
 %% 1) Setting parameters
 SNR_dB = 3; % Signal to Noise Ratio [dB]
@@ -24,11 +24,19 @@ A_s = pi*(50e3/2)^2; % area covered on the sea, circle of 50 km diameter [m²]
 sigma_t = sigma_0*A_s; % radar cross-section area [m²]
 
 %% 2) Computation of the Noise Power
-NF = 5; % system noise figure [dB]
+mu_ant = 0.7; % antenna efficiency [-]
+NF = 3; % noise figure of the receiver [dB]
 F = dB2LinearScale_SNR_sigma_gain_NF(NF); % system noise factor [-]
-T_0 = 290; % system reference temperature [K]
-T_sys = (F - 1)*T_0; % system equivalent noise temperature [K]
-B = 25e3; % bandwidth, B = 25 kHz [Hz]
+
+T0_ref = 290; % reference temperature to which the noise figure is referred [K]
+T_scene = 290; % brightness temperature of external thermal sources [K]
+T0_ant = 290; % physical temperature of the antenna [K]
+
+T_RX = (F - 1)*T0_ref; % system equivalent noise temperature [K]
+T_ant = mu_ant*T_scene + (1 - mu_ant)*T0_ant; % Antenna temperature [K]
+T_sys = T_ant + T_RX; % system temperature [K]
+
+B = 25e3; % transmitted bandwidth, B = 25 kHz [Hz]
 
 P_N = k_B*T_sys*B; % Noise Power [W]
 
