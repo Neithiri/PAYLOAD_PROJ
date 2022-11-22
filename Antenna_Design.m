@@ -3,7 +3,7 @@
 clearvars; close all; clc;
 
 %% Constants
-c = 3e8; % speed of light in vacuum [m/s]
+c = physconst('lightspeed'); % speed of light in vacuum [m/s]
 
 %% Antenna parameters
 f = 6e9; % antenna frequency, f = 6 GHz [Hz]
@@ -34,14 +34,22 @@ D = lambda/2;
 
 
 %% TEST
-f_test = 6e9;
-lambda_test = c/f_test;
-f_co_test = 4.301e9;
-lambda_co_test = c/f_co_test; % antenna cut-off wavelength [m]
-lambda_g_test = lambda_test/sqrt(1 - (lambda/lambda_co_test)^2 );
-G_test = 22;
-N_test = 2*lambda/lambda_g_test*10^(G_test/10);
+clearvars; close all; clc;
 
-l_slot_test = 0.5*lambda_test;
+c = physconst('lightspeed'); % speed of light in vacuum [m/s]
 
-l_slot_test*N_test
+f = 6e9;
+lambda = c/f;
+f_co = 4.301e9;
+lambda_co = c/f_co; % antenna cut-off wavelength [m]
+lambda_g = lambda/sqrt(1 - (lambda/lambda_co)^2 );
+G = 19.5;
+N = 2*lambda/lambda_g*10^(G/10);
+
+beamwidth = 50.7*(4*lambda/(N*lambda_g)); % beamwidth [°]
+l_slot = 0.5*lambda; % lenght of one slot [m]
+
+l_antenna = l_slot*(N + 2); % length of one antenna [m]
+
+fprintf("Beamwidth: theta = %d deg\n", beamwidth);
+fprintf("Length of one antenna: l_antenna = %d m\n", l_antenna);
