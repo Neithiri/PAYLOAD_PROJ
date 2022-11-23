@@ -29,7 +29,7 @@ A_s = pi*(25e3/2)^2; % area covered on the sea, circle of 25 km diameter [m²]
 sigma_t = sigma_0*A_s; % radar cross-section area [m²]
 
 %% 2) Computation of the Noise Power
-NF = 3; % noise figure of the receiver [dB]
+NF = 5; % noise figure of the receiver [dB]
 F = dB2LinearScale_SNR_sigma_gain_NF(NF); % system noise factor [-]
 
 T0_ref = 290; % reference temperature to which the noise figure is referred [K]

@@ -12,22 +12,22 @@ k_B = physconst('boltzmann'); % Boltzmann constant [J/K]
 
 %% 1) Setting parameters
 nb_arrays = 3; % nb of arrays [-]
-nb_antennas = 20; % nb of antennas per array [-]
+nb_antennas = 15; % nb of antennas per array [-]
 
-SNR_dB = 3; % Signal to Noise Ratio [dB]
+SNR_dB = 5; % Signal to Noise Ratio [dB]
 SNR = dB2LinearScale_SNR_sigma_gain_NF(SNR_dB); % Signal to Noise Ratio [-]
 
 R = 800e3; % detection range of the target, R = 800 km [m]
 f = 6E9; % frequency of the radiation, f = 6 GHz [Hz]
 lambda = c/f; % wavelength of the radiation [m]
 
-sigma_0_dB = -15; % normalized radar cross-section (from paper) [dB]
+sigma_0_dB = -20; % normalized radar cross-section (from paper) [dB]
 sigma_0 = dB2LinearScale_SNR_sigma_gain_NF(sigma_0_dB); % normalized radar cross-section [-]
 A_s = pi*(50e3/2)^2; % area covered on the sea, circle of 50 km diameter [m²]
 sigma_t = sigma_0*A_s; % radar cross-section area [m²]
 
 %% 2) Computation of the Noise Power
-NF = 3; % noise figure of the receiver [dB]
+NF = 5; % noise figure of the receiver [dB]
 F = dB2LinearScale_SNR_sigma_gain_NF(NF); % system noise factor [-]
 
 T0_ref = 290; % reference temperature to which the noise figure is referred [K]
@@ -44,7 +44,7 @@ P_RX = SNR*P_N;
 %% 4) Computation of the antenna gains
 %% For sake of simplicity we consider the same parameters for both TX and
 %% RX antennas
-G_TX_dB = 21.5; % gain of the TX antenna [dB]
+G_TX_dB = 19.7; % gain of the TX antenna [dB]
 G_TX = dB2LinearScale_SNR_sigma_gain_NF(G_TX_dB); % gain of the TX antenna [-]
 G_RX = G_TX; % gain of the RX antenna [-]
 
