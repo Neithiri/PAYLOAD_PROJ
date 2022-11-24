@@ -12,7 +12,7 @@ a = 20.193e-3; % a = 20.193 mm [m]
 b = 40.386e-3; % antenna 2nd dimension, b = 40.386 mm [m]
 f_co = 4.301e9; % antenna cut-off frequency [Hz]
 lambda_co = c/f_co; % antenna cut-off wavelength [m]
-theta = 1.1; % antenna beamwidth [deg]
+theta = 1.2; % antenna beamwidth [deg]
 
 %% 1) Computation of the guide wavelength
 lambda_g = lambda/sqrt(1 - (lambda/lambda_co)^2);

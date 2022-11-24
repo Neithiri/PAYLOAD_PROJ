@@ -2,13 +2,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%      LINK BUDGET       %%%%%%%%%%%%%%%%%%%%%%%%%
 clearvars; close all; clc;
 
-%% TO BE TUNED
-P_TX = 200; % transmitted power for one array [W]
-
 %% Conversions
 dB2LinearScale_SNR_sigma_gain_NF = @(SNR_dB) 10^(SNR_dB/10);
 dB2LinearScale_losses = @(L_dB) 10^(L_dB/20);
 LinearScale2dB_gain = @(Gain) 10*log10(Gain);
+
+%% TO BE TUNED
+G_dB = 30; % gain of the array [dB]
+G = dB2LinearScale_SNR_sigma_gain_NF(G_dB); % gain of the array [-]
 
 %% 0) Constants
 c = physconst('lightspeed'); % speed of light in vacuum [m/s]
@@ -64,10 +65,10 @@ L_a = L_atm + L_space; % 2-way propagating losses [-]
 
 %% 5) Computation of the transmitted power
 numerator = P_RX*(4*pi)^3*R^4*eta_g;
-denominator = P_TX*L_TX*L_RX*lambda^2*L_a*sigma_t;
-G = sqrt ( numerator / denominator );
-G_dB = LinearScale2dB_gain(G);
+denominator = G^2*L_TX*L_RX*lambda^2*L_a*sigma_t;
+
+P_TX = numerator / denominator;
 
 %% 7) Let's print the outputs
-fprintf("Array gain: G = %d dB\n", G_dB);
+fprintf("Transmitted power: P_TX = %d W\n", P_TX);
 

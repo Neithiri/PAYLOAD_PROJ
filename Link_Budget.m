@@ -20,6 +20,7 @@ SNR = dB2LinearScale_SNR_sigma_gain_NF(SNR_dB); % Signal to Noise Ratio [-]
 R = 800e3; % detection range of the target, R = 800 km [m]
 f = 6E9; % frequency of the radiation, f = 6 GHz [Hz]
 lambda = c/f; % wavelength of the radiation [m]
+eta_g = 0.6; % atenna gain efficiency [-]
 
 sigma_0_dB = -20; % normalized radar cross-section (from paper) [dB]
 sigma_0 = dB2LinearScale_SNR_sigma_gain_NF(sigma_0_dB); % normalized radar cross-section [-]
@@ -44,7 +45,7 @@ P_RX = SNR*P_N;
 %% 4) Computation of the antenna gains
 %% For sake of simplicity we consider the same parameters for both TX and
 %% RX antennas
-G_TX_dB = 19.7; % gain of the TX antenna [dB]
+G_TX_dB = 19.3; % gain of the TX antenna [dB]
 G_TX = dB2LinearScale_SNR_sigma_gain_NF(G_TX_dB); % gain of the TX antenna [-]
 G_RX = G_TX; % gain of the RX antenna [-]
 
@@ -74,7 +75,7 @@ L_space = lambda/(8*pi*R); % space losses [-]
 L_a = L_atm + L_space; % 2-way propagating losses [-]
 
 %% 6) Computation of the transmitted power
-numerator = P_RX*(4*pi)^3*R^4;
+numerator = P_RX*(4*pi)^3*R^4*eta_g;
 % denominator = G_TX*G_RX*L_TX*L_RX*lambda^2*L_p*L_a*sigma_t;
 denominator = G_TX*G_RX*L_TX*L_RX*lambda^2*L_a*sigma_t;
 
