@@ -60,8 +60,10 @@ L_atm = dB2LinearScale_losses(L_atm_dB); % atmospheric losses [-]
 
     % FREE SPACE LOSSES
 L_space = lambda/(8*pi*R); % space losses [-]
+L_space_dB = 20*log10(L_space);
 
 L_a = L_atm + L_space; % 2-way propagating losses [-]
+L_a_dB = 20*log10(L_a);
 
 %% 5) Computation of the transmitted power
 numerator = P_RX*(4*pi)^3*R^4*eta_g;
@@ -70,5 +72,6 @@ denominator = G^2*L_TX*L_RX*lambda^2*L_a*sigma_t;
 P_TX = numerator / denominator;
 
 %% 7) Let's print the outputs
+fprintf("Received power: P_RX = %d W\n", P_RX);
 fprintf("Transmitted power: P_TX = %d W\n", P_TX);
 
